@@ -1,0 +1,89 @@
+﻿@page
+@model Proiect_Nagy_Cristina.Pages.Childrens.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Children</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Children.FirstName" class="control-label"></label>
+                <input asp-for="Children.FirstName" class="form-control" />
+                <span asp-validation-for="Children.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Children.LastName" class="control-label"></label>
+                <input asp-for="Children.LastName" class="form-control" />
+                <span asp-validation-for="Children.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Children.Address" class="control-label"></label>
+                <input asp-for="Children.Address" class="form-control" />
+                <span asp-validation-for="Children.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Children.CNP" class="control-label"></label>
+                <input asp-for="Children.CNP" class="form-control" />
+                <span asp-validation-for="Children.CNP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Children.PhoneNumber" class="control-label"></label>
+                <input asp-for="Children.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Children.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Children.Insurance" class="control-label"></label>
+                <input asp-for="Children.Insurance" class="form-control" />
+                <span asp-validation-for="Children.Insurance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Children.DoctorID" class="control-label">Code</label>
+                <select asp-for="Children.DoctorID" class="form-control" asp-items="ViewBag.DoctorID"></select>
+                <span asp-validation-for="Children.DoctorID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="table">
+                    <table>
+                        <tr>
+                            @{
+                                int cnt = 0;
+                                foreach (var cat in Model.AssignedAvailabilityDataList)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                    @:</tr><tr>
+                                    }
+                                    @:<td>
+                                        <input type="checkbox"
+                                               name="selectedDatesAndHours"
+                                               value="@cat.AvailableTimeDateID"
+                                               @(Html.Raw(cat.Assigned ? "checked=\"checked\"" : "")) />
+                                        @cat.AvailableTimeDateID @: @cat.DateTime
+                                    @:</td>
+                                }
+                            @:</tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
